@@ -8,32 +8,26 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
+import Input from '../componants/textInput';
 const Login = ({route}) => {
   const data = route.params;
   const [Email, onChangeEmail] = useState();
   const [Password, onChangePassword] = useState();
   const [error, onError] = useState();
   let userError = '';
+
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Email Address"
-        placeholderTextColor={'grey'}
-        keyboardType="email-address"
-        onChangeText={text => {
-          onChangeEmail(text);
-        }}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Password"
-        placeholderTextColor={'grey'}
+    <View>
+      <Input
+        placeholder="Enter Email"
+        onChangeText={text => onChangeEmail(text)}
         keyboardType="default"
-        onChangeText={text => {
-          onChangePassword(text);
-        }}
+      />
+      <Input
+        placeholder="Password"
         secureTextEntry={true}
+        onChangeText={text => onChangePassword(text)}
+        keyboardType="default"
       />
       <Button
         title="Submit"

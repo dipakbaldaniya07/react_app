@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
+import Input from '../componants/textInput';
 
 const SignUp = ({navigation}) => {
   const [Name, onChangeName] = useState();
@@ -22,71 +23,46 @@ const SignUp = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <TextInput
-          style={styles.input}
+        <Input
           placeholder="Enter Name"
-          placeholderTextColor={'grey'}
+          onChangeText={text => onChangeName(text)}
           keyboardType="default"
-          onChangeText={text => {
-            onChangeName(text);
-          }}
         />
-
-        <TextInput
-          style={styles.input}
-          placeholder="Enter Email Address"
-          placeholderTextColor={'grey'}
-          keyboardType="email-address"
-          onChangeText={text => {
-            onChangeEmail(text);
-          }}
+        <Input
+          placeholder="Enter Email"
+          onChangeText={text => onChangeEmail(text)}
+          keyboardType="default"
         />
-        <TextInput
-          style={styles.input}
-          placeholder="Enter Mobile Number"
-          placeholderTextColor={'grey'}
+        <Input
+          placeholder="Enter mobile Number"
+          onChangeText={text => onChangePhone(text)}
           keyboardType="number-pad"
-          onChangeText={text => {
-            onChangePhone(text);
-          }}
           maxLength={10}
         />
-        <TextInput
-          style={styles.input}
+        <Input
           placeholder="Enter Password"
-          placeholderTextColor={'grey'}
-          keyboardType="default"
-          onChangeText={text => {
-            onChangePassword(text);
-          }}
           secureTextEntry={true}
+          onChangeText={text => onChangePassword(text)}
+          keyboardType="default"
         />
-        <TextInput
-          style={styles.input}
+        <Input
           placeholder="Confirm Password"
-          placeholderTextColor={'grey'}
-          keyboardType="default"
-          onChangeText={text => {
-            onChangeC_password(text);
-          }}
           secureTextEntry={true}
+          onChangeText={text => onChangeC_password(text)}
+          keyboardType="default"
         />
         <Text style={styles.error}>{error}</Text>
 
-        <TextInput
-          style={styles.input}
+        <Input
           placeholder="Enter Address"
-          placeholderTextColor={'grey'}
+          onChangeText={text => onChangeAddress(text)}
           keyboardType="default"
-          onChangeText={text => {
-            onChangeAddress(text);
-          }}
         />
         <Button
           title="Submit"
           color={'blue'}
           onPress={() => {
-            if (Password == C_password) {
+            if (Password == C_password && Email != null && Password != null) {
               userError = '';
               onError(userError);
               navigation.navigate('Login', {
