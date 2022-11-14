@@ -9,6 +9,7 @@ import {
   ScrollView,
 } from 'react-native';
 import CustomButton from '../componants/button';
+import ErrorText from '../componants/text';
 import Input from '../componants/textInput';
 
 const SignUp = ({navigation}) => {
@@ -49,10 +50,16 @@ const SignUp = ({navigation}) => {
         <Input
           placeholder="Confirm Password"
           secureTextEntry={true}
-          onChangeText={text => onChangeC_password(text)}
-          keyboardType="default"
+          onChangeText={text => {
+            onChangeC_password(text);
+            if (Password != text) {
+              onError('confirm pass word does not match');
+            } else {
+              onError('');
+            }
+          }}
         />
-        <Text style={styles.error}>{error}</Text>
+        <ErrorText value={error}></ErrorText>
 
         <Input
           placeholder="Enter Address"
@@ -65,8 +72,6 @@ const SignUp = ({navigation}) => {
           color={'blue'}
           onpress={() => {
             if (Password == C_password && Email != null && Password != null) {
-              userError = '';
-              onError(userError);
               navigation.navigate('Login', {
                 name: Name,
                 email: Email,
@@ -74,13 +79,7 @@ const SignUp = ({navigation}) => {
                 password: Password,
                 address: Address,
               });
-            } else if (Password != C_password) {
-              userError = 'confirm password does not match';
-              return onError(userError);
-            } else if (Password == C_password) {
-              return onError(userError);
             }
-            console.log(`error : ${error}`);
           }}
         />
       </ScrollView>

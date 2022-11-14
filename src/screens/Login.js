@@ -31,8 +31,8 @@ const Login = ({route}) => {
         keyboardType="default"
       />
       <CustomButton
-        title="Submit"
-        style={styles.button}
+        title="submit"
+        color={'blue'}
         onPress={() => {
           if (Password == data.password && Email == data.email) {
             userError = 'login successfully';

@@ -26,20 +26,10 @@ const Input = ({
 };
 
 const styles = {
-  container: {
-    marginTop: 30,
-    height: '100%',
-    width: '100%',
-    justifyContent: 'center',
-  },
   input: {
     height: 50,
     margin: 20,
     borderBottomWidth: 1,
-  },
-  error: {
-    color: 'red',
-    marginLeft: 20,
   },
 };
 
