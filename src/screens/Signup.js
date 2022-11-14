@@ -7,6 +7,7 @@ import {
   StyleSheet,
   SafeAreaView,
   ScrollView,
+  Image,
 } from 'react-native';
 import CustomButton from '../componants/button';
 import ErrorText from '../componants/text';
@@ -102,5 +103,16 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
 });
+
+const SignUpStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: true,
+      }}>
+      <Stack.Screen name="Signup" component={SignUp} />
+    </Stack.Navigator>
+  );
+};
 
 export default SignUp;

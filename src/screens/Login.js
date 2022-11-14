@@ -78,4 +78,15 @@ const styles = StyleSheet.create({
   },
 });
 
+const LoginStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: true,
+      }}>
+      <Stack.Screen name="Login" component={Login} />
+    </Stack.Navigator>
+  );
+};
+
 export default Login;
