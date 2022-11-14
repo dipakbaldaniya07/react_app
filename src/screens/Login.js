@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
+import CustomButton from '../componants/button';
 import Input from '../componants/textInput';
 const Login = ({route}) => {
   const data = route.params;
@@ -29,9 +30,9 @@ const Login = ({route}) => {
         onChangeText={text => onChangePassword(text)}
         keyboardType="default"
       />
-      <Button
+      <CustomButton
         title="Submit"
-        color={'blue'}
+        style={styles.button}
         onPress={() => {
           if (Password == data.password && Email == data.email) {
             userError = 'login successfully';
@@ -53,8 +54,6 @@ const Login = ({route}) => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 30,
-    height: '100%',
-    width: '100%',
     justifyContent: 'center',
   },
   input: {
@@ -67,6 +66,15 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: 'black',
   },
 });
 

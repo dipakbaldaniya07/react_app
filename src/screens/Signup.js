@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
+import CustomButton from '../componants/button';
 import Input from '../componants/textInput';
 
 const SignUp = ({navigation}) => {
@@ -21,7 +22,7 @@ const SignUp = ({navigation}) => {
   let userError = '';
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView>
         <Input
           placeholder="Enter Name"
@@ -58,10 +59,11 @@ const SignUp = ({navigation}) => {
           onChangeText={text => onChangeAddress(text)}
           keyboardType="default"
         />
-        <Button
-          title="Submit"
+
+        <CustomButton
+          title="submit"
           color={'blue'}
-          onPress={() => {
+          onpress={() => {
             if (Password == C_password && Email != null && Password != null) {
               userError = '';
               onError(userError);
@@ -82,15 +84,13 @@ const SignUp = ({navigation}) => {
           }}
         />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
-    height: '100%',
-    width: '100%',
+    marginTop: 20,
     justifyContent: 'center',
   },
   input: {
