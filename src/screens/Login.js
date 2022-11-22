@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import CustomButton from '../componants/button';
 import Input from '../componants/textInput';
+
 const Login = ({route}) => {
   const data = route.params;
   const [Email, onChangeEmail] = useState();
@@ -30,7 +31,8 @@ const Login = ({route}) => {
         onChangeText={text => onChangePassword(text)}
         keyboardType="default"
       />
-      <CustomButton
+
+      <Button
         title="submit"
         color={'blue'}
         onPress={() => {
@@ -44,6 +46,23 @@ const Login = ({route}) => {
             userError = 'incorrect Email';
             return onError(userError);
           }
+          console.log('hello');
+        }}
+      />
+      <CustomButton
+        title="submit"
+        onPress={() => {
+          if (Password == data.password && Email == data.email) {
+            userError = 'login successfully';
+            return onError(userError);
+          } else if (Password != data.password) {
+            userError = 'incorrect password';
+            return onError(userError);
+          } else if (Email != data.email) {
+            userError = 'incorrect Email';
+            return onError(userError);
+          }
+          console.log('hello');
         }}
       />
       <Text>{error}</Text>
@@ -82,7 +101,7 @@ const LoginStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerShown: true,
+        headerShown: false,
       }}>
       <Stack.Screen name="Login" component={Login} />
     </Stack.Navigator>

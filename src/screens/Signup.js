@@ -104,15 +104,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const SignUpStack = () => {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: true,
-      }}>
-      <Stack.Screen name="Signup" component={SignUp} />
-    </Stack.Navigator>
-  );
-};
-
 export default SignUp;

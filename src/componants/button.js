@@ -1,30 +1,39 @@
 import React from 'react';
-import {View, Button, Text, StyleSheet} from 'react-native';
+import {View, Button, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
-const CustomButton = ({title, color, onpress, disabled}) => {
-  const {button, container} = styles;
-  return (
-    <View style={container}>
-      <Button
-        style={button}
-        title={title}
-        onPress={onpress}
-        color={color}
-        disabled={false}
-      />
+const CustomButton = ({title, color, onpress, disabled}) => (
+  <TouchableOpacity
+    onPress={onpress}
+    style={{
+      height: 40,
+      width: 120,
+      opacity: 1,
+      alignSelf: 'center',
+      alignItems: 'center',
+      backgroundColor: 'darkturquoise',
+      borderRadius: 12,
+      justifyContent: 'center',
+    }}>
+    <View>
+      <Text style={styles.text}>{title}</Text>
     </View>
-  );
-};
+  </TouchableOpacity>
+);
 
 const styles = {
   container: {
-    padding: 30,
-    justifyContent: 'center',
+    height: 40,
+    width: 120,
+    opacity: 1,
+    alignSelf: 'center',
+    backgroundColor: CustomButton.color,
     borderRadius: 15,
   },
-  button: {
+  text: {
     alignItems: 'center',
-    justifyContent: 'center',
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 19,
   },
 };
 
