@@ -9,11 +9,16 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
+import {ThemeContext} from '../componants/changetheme';
+import {useContext} from 'react';
+import {Colors, useTheme} from 'react-native-paper';
+
 import CustomButton from '../componants/button';
 import ErrorText from '../componants/text';
 import Input from '../componants/textInput';
-
-const SignUp = ({navigation}) => {
+import {colors} from '../componants/themeContext';
+import {useNavigation} from '@react-navigation/native';
+const SignUp = () => {
   const [Name, onChangeName] = useState();
   const [Email, onChangeEmail] = useState();
   const [Phone, onChangePhone] = useState();
@@ -23,9 +28,24 @@ const SignUp = ({navigation}) => {
   const [error, onError] = useState();
   let userError = '';
 
+  const {theme} = useContext(ThemeContext);
+  let activeColor = colors[theme.mode];
+
+  const navigation = useNavigation();
+
+  const register = () => {
+    navigation.navigate('Login', {
+      name: Name,
+      email: Email,
+      phone: Phone,
+      password: Password,
+      address: Address,
+    });
+  };
+
   return (
-    <View style={styles.container}>
-      <ScrollView>
+    <View style={[{backgroundColor: activeColor.primary, height: '100%'}]}>
+      <ScrollView style={[{backgroundColor: activeColor.primary}]}>
         <Input
           placeholder="Enter Name"
           onChangeText={text => onChangeName(text)}
@@ -54,7 +74,7 @@ const SignUp = ({navigation}) => {
           onChangeText={text => {
             onChangeC_password(text);
             if (Password != text) {
-              onError('confirm pass word does not match');
+              onError('confirm password does not match');
             } else {
               onError('');
             }
@@ -72,14 +92,15 @@ const SignUp = ({navigation}) => {
           title="submit"
           color={'blue'}
           onpress={() => {
+            const data = {
+              name: Name,
+              email: Email,
+              phone: Phone,
+              password: Password,
+              address: Address,
+            };
             if (Password == C_password && Email != null && Password != null) {
-              navigation.navigate('Login', {
-                name: Name,
-                email: Email,
-                phone: Phone,
-                password: Password,
-                address: Address,
-              });
+              register();
             }
           }}
         />
@@ -90,13 +111,9 @@ const SignUp = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
+    height: 800,
+    backgroundColor: 'white',
     justifyContent: 'center',
-  },
-  input: {
-    height: 50,
-    margin: 20,
-    borderBottomWidth: 1,
   },
   error: {
     color: 'red',

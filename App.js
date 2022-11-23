@@ -1,21 +1,33 @@
 import React, {useState} from 'react';
-import {View, Button, TextInput, Text, StyleSheet} from 'react-native';
 
-import SignUp from './src/screens/Signup';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Login from './src/screens/Login';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createDrawerNavigator} from '@react-navigation/drawer';
 import DrawerNavigator from './src/componants/drawer';
-
+import {Provider as PaperProvider} from 'react-native-paper';
+import BottomTabNavigator from './src/componants/bottomtab';
 const Stack = createNativeStackNavigator();
+import {ThemeContext} from './src/componants/changetheme';
 
 const App = () => {
+  const [theme, SetTheme] = useState({mode: 'light'});
+
+  const UpdateTheme = NewTheme => {
+    let mode;
+    if (!NewTheme) {
+      mode = theme.mode === 'dark' ? 'light' : 'dark';
+      NewTheme = {mode};
+    }
+    SetTheme(NewTheme);
+  };
+
   return (
-    <NavigationContainer>
-      <DrawerNavigator />
-    </NavigationContainer>
+    <ThemeContext.Provider value={{theme, UpdateTheme}}>
+      <PaperProvider>
+        <NavigationContainer>
+          <BottomTabNavigator />
+        </NavigationContainer>
+      </PaperProvider>
+    </ThemeContext.Provider>
   );
 };
 

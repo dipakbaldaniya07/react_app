@@ -3,6 +3,7 @@ import {View, Button, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 const CustomButton = ({title, color, onpress, disabled}) => (
   <TouchableOpacity
+    backgroundColor={'grey'}
     onPress={onpress}
     style={{
       height: 40,

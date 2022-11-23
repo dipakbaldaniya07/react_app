@@ -1,4 +1,5 @@
 import React, {useRef} from 'react';
+import {colors} from '../componants/themeContext';
 import {
   View,
   Text,
@@ -9,9 +10,15 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
+import CustomButton from '../componants/button';
+import {useContext} from 'react';
+import {ThemeContext} from '../componants/changetheme';
+
 let isAnimate = false;
 
 export default function AnimationPage() {
+  const {theme} = useContext(ThemeContext);
+  let activeColor = colors[theme.mode];
   const position = useRef(new Animated.ValueXY({x: 0, y: 0})).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
@@ -60,7 +67,12 @@ export default function AnimationPage() {
   let x = 0;
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        height: '100%',
+        backgroundColor: activeColor.primary,
+        justifyContent: 'space-between',
+      }}>
       <TouchableOpacity
         activeOpacity={1}
         onPress={() => {
@@ -107,19 +119,14 @@ export default function AnimationPage() {
         </Animated.View>
       </TouchableOpacity>
       <View style={styles.container1}>
-        <Button title="Fade In View" onPress={fadeIn} style={styles.button} />
-        <Button title="Fade Out View" onPress={fadeOut} />
+        <CustomButton title={'fade in view'} onpress={fadeIn} />
+        <CustomButton title={'fade out view'} onpress={fadeOut} />
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    height: 700,
-    // backgroundColor: 'darkturquoise',
-    justifyContent: 'space-between',
-  },
   text: {
     fontSize: 18,
     fontWeight: 'bold',
@@ -129,7 +136,7 @@ const styles = StyleSheet.create({
   container1: {
     flexBasis: 100,
     justifyContent: 'space-evenly',
-    marginVertical: 16,
+    marginVertical: 30,
   },
 });
 

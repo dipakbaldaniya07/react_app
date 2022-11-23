@@ -11,12 +11,25 @@ import SignUp from '../screens/Signup';
 import Login from '../screens/Login';
 import ApiPage from '../screens/apidata';
 import AnimationPage from '../screens/animation';
+import {colors} from './themeContext';
+import {MainStackNavigator} from './mainstack';
+import {LoginStackNavigator} from './mainstack';
+import {AnimationStackNavigator} from './mainstack';
+import {ApiStackNavigator} from './mainstack';
+import {ThemeContext} from './changetheme';
+import {useContext} from 'react';
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
+  const {theme} = useContext(ThemeContext);
+  let activeColor = colors[theme.mode];
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
+        tabBarStyle: {
+          backgroundColor: activeColor.tabbar,
+        },
+        headerShown: false,
         tabBarIcon: ({focused, color, size}) => {
           //   let iconName;
           if (route.name === 'signUp') {
@@ -24,7 +37,7 @@ const BottomTabNavigator = () => {
               <SignupIcon
                 width={25}
                 height={25}
-                fill={focused ? 'blue' : 'black'}
+                fill={focused ? '#3AB7FF' : 'grey'}
               />
             );
           } else if (route.name === 'Login') {
@@ -32,7 +45,7 @@ const BottomTabNavigator = () => {
               <LoginIcon
                 width={25}
                 height={25}
-                fill={focused ? 'blue' : 'black'}
+                fill={focused ? '#3AB7FF' : 'grey'}
               />
             );
           } else if (route.name === 'ApiPage') {
@@ -40,26 +53,26 @@ const BottomTabNavigator = () => {
               <LoginIcon
                 width={25}
                 height={25}
-                fill={focused ? 'blue' : 'black'}
+                fill={focused ? '#3AB7FF' : 'grey'}
               />
             );
-          } else if (route.name === 'AnimationPage') {
+          } else if (route.name === 'Animation') {
             return (
               <LoginIcon
                 width={25}
                 height={25}
-                fill={focused ? 'blue' : 'black'}
+                fill={focused ? '#3AB7FF' : 'grey'}
               />
             );
           }
         },
-        tabBarActiveTintColor: 'blue',
+        tabBarActiveTintColor: '#3AB7FF',
         tabBarInactiveTintColor: 'gray',
       })}>
-      <Tab.Screen name="signUp" component={SignUp} />
-      <Tab.Screen name="Login" component={Login} />
-      <Tab.Screen name="ApiPage" component={ApiPage} />
-      <Tab.Screen name="AnimationPage" component={AnimationPage} />
+      <Tab.Screen name="signUp" component={MainStackNavigator} />
+      <Tab.Screen name="Login" component={LoginStackNavigator} />
+      <Tab.Screen name="ApiPage" component={ApiStackNavigator} />
+      <Tab.Screen name="Animation" component={AnimationStackNavigator} />
     </Tab.Navigator>
   );
 };

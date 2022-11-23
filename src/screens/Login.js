@@ -7,19 +7,39 @@ import {
   StyleSheet,
   SafeAreaView,
   ScrollView,
+  Switch,
 } from 'react-native';
+import {useContext} from 'react';
+import {ThemeContext} from '../componants/changetheme';
 import CustomButton from '../componants/button';
 import Input from '../componants/textInput';
+import {DefaultTheme, DarkTheme, useRoute} from '@react-navigation/native';
+import {colors} from '../componants/themeContext';
 
-const Login = ({route}) => {
-  const data = route.params;
+const Login = () => {
+  const route = useRoute();
+  const {theme, UpdateTheme} = useContext(ThemeContext);
+  let activeColor = colors[theme.mode];
+
   const [Email, onChangeEmail] = useState();
   const [Password, onChangePassword] = useState();
   const [error, onError] = useState();
+  const [IsEnable, SetIsEnabled] = useState(theme.mode === 'dark');
+
   let userError = '';
 
+  const toggeleSwitch = () => {
+    UpdateTheme();
+    SetIsEnabled(previousState => !previousState);
+  };
   return (
-    <View>
+    <View
+      style={[
+        {
+          height: '100%',
+          backgroundColor: activeColor.primary,
+        },
+      ]}>
       <Input
         placeholder="Enter Email"
         onChangeText={text => onChangeEmail(text)}
@@ -34,7 +54,6 @@ const Login = ({route}) => {
 
       <Button
         title="submit"
-        color={'blue'}
         onPress={() => {
           if (Password == data.password && Email == data.email) {
             userError = 'login successfully';
@@ -49,23 +68,20 @@ const Login = ({route}) => {
           console.log('hello');
         }}
       />
-      <CustomButton
-        title="submit"
+      <Button
+        title="push"
         onPress={() => {
-          if (Password == data.password && Email == data.email) {
-            userError = 'login successfully';
-            return onError(userError);
-          } else if (Password != data.password) {
-            userError = 'incorrect password';
-            return onError(userError);
-          } else if (Email != data.email) {
-            userError = 'incorrect Email';
-            return onError(userError);
-          }
-          console.log('hello');
+          console.warn(route.params);
         }}
       />
-      <Text>{error}</Text>
+      <Text style={{color: activeColor.secondry}}>{error}</Text>
+      <Switch
+        style={{alignSelf: 'center', transform: [{scaleX: 1.4}, {scaleY: 1.4}]}}
+        trackColor={{false: 'lightgrey', true: 'lightgreen'}}
+        thumbColor={IsEnable ? 'green' : 'grey'}
+        onValueChange={toggeleSwitch}
+        value={IsEnable}
+      />
     </View>
   );
 };
@@ -96,16 +112,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
 });
-
-const LoginStack = () => {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}>
-      <Stack.Screen name="Login" component={Login} />
-    </Stack.Navigator>
-  );
-};
 
 export default Login;
